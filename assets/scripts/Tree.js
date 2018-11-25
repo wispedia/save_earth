@@ -40,10 +40,13 @@ cc.Class({
         cc.v2((other.world.radius + 30) * Math.sin(rotation), -(other.world.radius + 30) * Math.cos(rotation))
       );
       self.node.rotation = 180 - other.node.getRotation();
-      console.log(self.node.getRotation());
     } else {
+        self.node.destroy();
         this.game.gameOver();
     }
+  },
+  onDestroy: function() {
+    
   },
   rotationWithEarth: function() {},
   launch: function() {},
