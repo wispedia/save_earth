@@ -317,13 +317,8 @@
     "audio": {
       "__uuid__": "338ddabd-6218-4f85-9e0d-ba652b9c0e09"
     },
-    "successAudio": {
-      "__uuid__": "d18d55b4-c2e4-462e-9433-fef8d3f6e892"
-    },
-    "failedAudio": {
-      "__uuid__": "6904edff-3e29-4f26-9f1c-72db08749904"
-    },
-    "treeNum": 4,
+    "treeNum": 12,
+    "midTreeNum": 6,
     "treePool": [],
     "currentTree": null,
     "treeResetDuration": 0.5,

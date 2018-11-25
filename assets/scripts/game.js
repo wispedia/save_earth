@@ -17,6 +17,7 @@ cc.Class({
       type: cc.AudioClip
     },
     treeNum: 0,
+    midTreeNum: 0,
     treePool: [cc.Node],
     currentTree: cc.Node,
 
@@ -72,8 +73,14 @@ cc.Class({
     for (let i = 0; i < this.treeNum; i++) {
       let newTree = cc.instantiate(this.treePrefab);
       this.node.addChild(newTree);
-      newTree.setPosition(cc.v2(-130, -200 + i * 40));
-      newTree.getComponent("Tree").game = this;
+      if(i> 5) {
+        newTree.setPosition(cc.v2(130, -200 + (i - this.midTreeNum) * 40));
+        // newTree.setRotation(180);
+        newTree.getComponent("Tree").game = this;
+      } else {
+        newTree.setPosition(cc.v2(-130, -200 + i * 40));
+        newTree.getComponent("Tree").game = this;
+      }
       this.treePool.push(newTree);
     }
   },
