@@ -44,7 +44,7 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad() {
+  onLoad: function() {
     cc.audioEngine.play(this.audio, true, 1);
     this.spawnNewTree();
     this.initTree();
@@ -52,7 +52,7 @@ cc.Class({
     this.node.on(cc.Node.EventType.TOUCH_END, this.endTouch, this);
   },
 
-  start() {},
+  start: function() {},
 
   initTree: function() {
     this.currentTree = this.treePool.shift();
@@ -63,29 +63,17 @@ cc.Class({
     this.launchAndResetTree();
   },
 
-  onCollisionEnter: function(other, self) {
-    console.log("碰撞发生game");
-  },
-
   endTouch: function() {},
 
   spawnNewTree: function() {
     for (let i = 0; i < this.treeNum; i++) {
       let newTree = cc.instantiate(this.treePrefab);
-      this.node.addChild(newTree);
-      if(i> 5) {
-        newTree.setPosition(cc.v2(130, -200 + (i - this.midTreeNum) * 40));
-        // newTree.setRotation(180);
-        newTree.getComponent("Tree").game = this;
-      } else {
-        newTree.setPosition(cc.v2(-130, -200 + i * 40));
-        newTree.getComponent("Tree").game = this;
-      }
+      
       this.treePool.push(newTree);
     }
   },
 
-  launchAndResetTree() {
+  launchAndResetTree: function() {
     this.launchTree();
     if (this.treePool.length > 0) {
       this.currentTree = this.treePool.shift();
@@ -97,6 +85,10 @@ cc.Class({
   },
 
   resetTreePosition: function() {
+    this.node.addChild(this.currentTree);
+    this.currentTree.setPosition(cc.v2(140, -240));
+    // newTree.setRotation(180);
+    this.currentTree.getComponent("Tree").game = this;
     let reset = cc.moveTo(
       this.treeResetDuration,
       this.treeInitalPositionX,
@@ -125,21 +117,21 @@ cc.Class({
   },
   gameOver: function() {
     console.log("over");
-    if(this.loadFailedScene !== true) {
-      cc.director.loadScene("over",this.playFailedBgm);
+    if (this.loadFailedScene !== true) {
+      cc.director.loadScene("over", this.playFailedBgm);
       this.loadFailedScene = true;
     }
   },
-
-  update(dt) {
+  update: function(dt) {
     if (
       this.earth.children.length == this.treeNum &&
       this.treePool.length <= 0
     ) {
-      if(this.loadSuccessScene !== true) {
-        cc.director.loadScene("success",this.playSuccessBgm);
+      if (this.loadSuccessScene !== true) {
+        cc.director.loadScene("success", this.playSuccessBgm);
         this.loadSuccessScene = true;
       }
     }
+    this.label.string = this.treePool.length;
   }
 });

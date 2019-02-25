@@ -45,8 +45,8 @@ cc.Class({
 
   onLoad() {
     cc.audioEngine.play(this.failedAudio, false, 1);
-    this.restartBt.node.on(cc.Node.EventType.TOUCH_START, this.restart, this);
-    this.backBt.node.on(cc.Node.EventType.TOUCH_START, this.backUp, this);
+    this.restartBt.node.on(cc.Node.EventType.TOUCH_END, this.restart, this);
+    this.backBt.node.on(cc.Node.EventType.TOUCH_END, this.backUp, this);
   },
   backUp: function() {
     cc.director.loadScene("start");
@@ -58,8 +58,8 @@ cc.Class({
 
   onDestroy() {
     cc.audioEngine.stop(this.audio, false, 1);
-    this.restartBt.node.off(cc.Node.EventType.TOUCH_START, this.restart, this);
-    this.backBt.node.off(cc.Node.EventType.TOUCH_START, this.backUp, this);
+    this.restartBt.node.off(cc.Node.EventType.TOUCH_END, this.restart, this);
+    this.backBt.node.off(cc.Node.EventType.TOUCH_END, this.backUp, this);
   },
 
   start() {}

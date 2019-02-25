@@ -17,18 +17,39 @@ cc.Class({
       type: cc.Button
     },
     audio: {
-        default:null,
-        type:cc.AudioClip,
-    },
+      default: null,
+      type: cc.AudioClip
+    }
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   onLoad() {
     cc.audioEngine.play(this.audio, true, 1);
-    this.startBt.node.on(cc.Node.EventType.TOUCH_START, this.begin, this);
+    this.startBt.node.on(cc.Node.EventType.TOUCH_END, this.auth, this);
   },
+  auth: function() {
+    wx.getSetting({
+      success: this.getSettingSuccess.bind(this)
+    });
+  },
+
+  getSettingSuccess: function(res) {
+    if (!res.authSetting["scope.userInfo"]) {
+      wx.authorize({
+        scope: "scope.userInfo",
+        success:this.begin,
+      });
+    } else {
+      this.begin();
+    }
+  },
+
   begin() {
+    wx.cloud.init({
+      env: "zzfun-8ba6fb",
+      traceUser: true
+    });
     cc.audioEngine.stop(this.audio, true, 1);
     cc.loader.release(this.audio);
     cc.director.loadScene("game");
@@ -36,7 +57,7 @@ cc.Class({
 
   onDestroy() {
     cc.audioEngine.stop(this.audio, true, 1);
-    this.startBt.node.off(cc.Node.EventType.TOUCH_START,this.begin,this);
+    this.startBt.node.off(cc.Node.EventType.TOUCH_END, this.begin, this);
   },
   start() {}
 

@@ -27,23 +27,34 @@ cc.Class({
     //         this._bar = value;
     //     }
     // },
-
   },
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad () {
-       // 开启碰撞检测
-       cc.director.getCollisionManager().enabled = true;
-      //  cc.director.getCollisionManager().enabledDebugDraw = true;
+  onLoad() {
+    // 开启碰撞检测
+    cc.director.getCollisionManager().enabled = true;
+    //  cc.director.getCollisionManager().enabledDebugDraw = true;
   },
   start() {
     this.timer = 0;
+    this.rand = 0;
   },
 
   update: function(dt) {
-    let rotation = this.timer % 360;
-    this.node.rotation = rotation;
+    //  这个决定每次改变方几率的频率
+    if (this.timer % 30 == 0) {
+      this.rand = Math.random();
+    }
+    //  这个决定改变方向旋转的概率
+    let flag = -1;
+    if (this.rand > 0.3) {
+      flag = 1;
+    }
+    // 这个参数决定旋转的速度
+    let step = 1;
+    let rotation = step * flag;
+    this.node.rotation = this.node.rotation + rotation;
     this.timer++;
   }
 

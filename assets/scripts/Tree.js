@@ -28,26 +28,32 @@ cc.Class({
     // 开启碰撞检测
     let manager = cc.director.getCollisionManager();
     manager.enabled = true;
-    // manager.enabledDebugDraw = true;
   },
 
   onCollisionEnter: function(other, self) {
     if (other.node.group == "earth") {
-      console.log(other.node.getRotation());
       let rotation = (other.node.getRotation() * Math.PI) / 180;
       self.node.parent = other.node;
       self.node.setPosition(
-        cc.v2((other.world.radius + 30) * Math.sin(rotation), -(other.world.radius + 30) * Math.cos(rotation))
+        cc.v2(
+          (other.world.radius + 30) * Math.sin(rotation),
+          -(other.world.radius + 30) * Math.cos(rotation)
+        )
       );
       self.node.rotation = 180 - other.node.getRotation();
+      self.node.character = "tree";
     } else {
-        self.node.destroy();
-        this.game.gameOver();
+      if (other.node.group == "tree") {
+        cc.director.pause();
+        setTimeout(() => {
+          cc.director.resume();
+          self.node.destroy();
+          this.game.gameOver();
+        }, 300);
+      }
     }
   },
-  onDestroy: function() {
-    
-  },
+  onDestroy: function() {},
   rotationWithEarth: function() {},
   launch: function() {},
   start() {}
