@@ -7,10 +7,10 @@
 ## 主要页面
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/wispedia/save_earth/master/snapshot/begain.png" height="330" width="190" >
+<img src="https://raw.githubusercontent.com/wispedia/save_earth/master/snapshot/begain.png" height="416" width="190" >
 
-<img src="https://raw.githubusercontent.com/wispedia/save_earth/master/snapshot/gaming.png" height="330" width="190" >
+<img src="https://raw.githubusercontent.com/wispedia/save_earth/master/snapshot/gaming.png" height="416" width="190" >
 
-<img src="https://raw.githubusercontent.com/wispedia/save_earth/master/snapshot/game_over.png" height="330" width="190" >
+<img src="https://raw.githubusercontent.com/wispedia/save_earth/master/snapshot/game_over.png" height="416" width="190" >
 
  </div>
