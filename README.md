@@ -4,6 +4,7 @@
 - 基于[cocos creator](https://www.cocos.com/)构建
 - 逻辑代码在 `assets/scripts` 文件夹下
 
+
 ## 主要页面
 
 <div align="center">
